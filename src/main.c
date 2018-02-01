@@ -45,7 +45,7 @@ int main(int argc, char **argv)
 		printf("Failed to initialize freetype");
 	}
 
-	if (FT_New_Face(ft.lib, argv[1], 0, &ft.face))
+	if (FT_New_Face(ft.lib, "arial.ttf", 0, &ft.face))
 	{
 		printf("Problem loading fontfile %s", argv[1]);
 	}
