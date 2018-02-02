@@ -52,20 +52,49 @@ int main(int argc, char **argv)
 	}
 
 
+	// arg1 每个字的长宽 
+	// arg2 整个texture的长宽 。
+	// arg3 起始字符
+	// arg4 结束字符
+
+
 	int startChar = '1';
 	int endChar = '4';
-	int charNum = endChar - startChar + 1;
+	
 
 
 	int iw = 128;  // 每个字的长宽 
 	int ih = iw;
 	
-	
-	int fontHeight = iw;//35;  2048 * 2048
+
 
 
 	int _width = 256;  // 所有字体的长宽
 	int _height = 256;
+
+	 
+	if (argc == 5)
+	{
+		char * end = NULL;
+		iw = ih =		   strtol(argv[1], &end, 10);
+		_width = _height = strtol(argv[2], &end, 10);
+
+
+		if(argv[3][1] == 'x')
+			startChar = strtol(argv[3], &end, 16 );
+		else 
+			startChar = strtol(argv[3], &end, 10);
+
+		if (argv[4][1] == 'x')
+			endChar = strtol(argv[4], &end, 16);
+		else
+			endChar = strtol(argv[4], &end, 10);
+
+		
+	}
+
+	int charNum = endChar - startChar + 1;
+	int fontHeight = iw;//35;  2048 * 2048
 
 	if (_width % iw != 0)
 	{
