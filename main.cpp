@@ -52,10 +52,10 @@ int main(int argc, char **argv)
 	}
 
 
-	// arg1 Ã¿¸ö×ÖµÄ³¤¿í 
-	// arg2 Õû¸ötextureµÄ³¤¿í ¡£
-	// arg3 ÆðÊ¼×Ö·û
-	// arg4 ½áÊø×Ö·û
+	// arg1 æ¯ä¸ªå­—çš„é•¿å®½ 
+	// arg2 æ•´ä¸ªtextureçš„é•¿å®½ ã€‚
+	// arg3 èµ·å§‹å­—ç¬¦
+	// arg4 ç»“æŸå­—ç¬¦
 
 
 	int startChar = '1';
@@ -63,13 +63,13 @@ int main(int argc, char **argv)
 	
 
 
-	int iw = 128;  // Ã¿¸ö×ÖµÄ³¤¿í 
+	int iw = 128;  // æ¯ä¸ªå­—çš„é•¿å®½ 
 	int ih = iw;
 	
 
 
 
-	int _width = 256;  // ËùÓÐ×ÖÌåµÄ³¤¿í
+	int _width = 256;  // æ‰€æœ‰å­—ä½“çš„é•¿å®½
 	int _height = 256;
 
 	 
@@ -128,7 +128,14 @@ int main(int argc, char **argv)
 	int * buf = 0;
 	//buf = malloc(ft.face->glyph->bitmap.rows * ft.face->glyph->bitmap.width * sizeof(int));
 	buf = malloc(_height * _width * sizeof(int));
-
+	//memset(buf, 0xff, _height * _width * sizeof(int));
+	for (i = 0; i < _height; i++)
+	{
+		for (j = 0; j < _width; j++)
+		{
+			buf[i*_width + j] = 0xff000000;
+		}
+	}
 	FT_Set_Pixel_Sizes(ft.face, 0, fontHeight);
 	g = ft.face->glyph;
 
@@ -153,19 +160,19 @@ int main(int argc, char **argv)
 			 
 
 				unsigned int brightness = (unsigned int)g->bitmap.buffer[k];
-				brightness = brightness << 8 | brightness << 16 | brightness << 24 | brightness;
-				if ((unsigned int)g->bitmap.buffer[k] == 0xff)
+				brightness = (brightness << 8 )| (brightness << 16) | 0xff000000 | brightness;
+			/*	if ((unsigned int)g->bitmap.buffer[k] == 0xff)
 				{
-					buf[itowrite] = 0xffffffff;
+					buf[itowrite] = 0xff000000;
 				}
 				else  if ((unsigned int)g->bitmap.buffer[k] == 0x0)
 				{
-					buf[itowrite] = 0x0;
+					buf[itowrite] = 0xffffffff ;
 				}
 				else
 				{
 					buf[itowrite] = 0xFFff0000; // blue
-				}
+				}*/
 
 				buf[itowrite] = brightness;
 			}
